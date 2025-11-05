@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechApp - Sistema Avançado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">TechApp</span>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-link active">Início</a>
+                    <a href="/dashboard" class="nav-link">Dashboard</a>
+                    <a href="/about" class="nav-link">Sobre</a>
+                </nav>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Sistema Online</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Tecnologia de
+                        <span class="text-gradient">Ponta</span>
+                    </h1>
+                    <p class="hero-description">
+                        Sistema avançado de gerenciamento com interface moderna e confiável.
+                        Desenvolvido com as melhores práticas de desenvolvimento web.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="checkStatus()">
+                            Verificar Status
+                        </button>
+                        <button class="btn btn-secondary" onclick="location.href='/dashboard'">
+                            Acessar Dashboard
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="circuit-pattern"></div>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section class="features">
+                <h2 class="section-title">Funcionalidades</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔧</div>
+                        <h3>Sistema Robusto</h3>
+                        <p>Arquitetura sólida e confiável para operações críticas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Alta Performance</h3>
+                        <p>Otimizado para velocidade e eficiência máximas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Segurança Avançada</h3>
+                        <p>Proteção multicamada para seus dados e operações.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Analytics Integrado</h3>
+                        <p>Monitoramento em tempo real e relatórios detalhados.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Status Panel -->
+            <section class="status-panel">
+                <h2 class="section-title">Status do Sistema</h2>
+                <div class="status-content">
+                    <div id="status-display" class="status-display">
+                        <div class="loading-spinner"></div>
+                        <span>Verificando status...</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 TechApp. Sistema desenvolvido com tecnologia de ponta.</p>
+                <div class="footer-links">
+                    <a href="/about">Sobre</a>
+                    <a href="#" onclick="checkStatus()">Status</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TechApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">TechApp</span>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-link">Início</a>
+                    <a href="/dashboard" class="nav-link active">Dashboard</a>
+                    <a href="/about" class="nav-link">Sobre</a>
+                </nav>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Sistema Online</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <section class="dashboard-header">
+                <h1 class="dashboard-title">
+                    Dashboard de 
+                    <span class="text-gradient">Controle</span>
+                </h1>
+                <p class="dashboard-subtitle">
+                    Monitoramento em tempo real do sistema
+                </p>
+            </section>
+
+            <!-- Metrics Grid -->
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-icon">🚀</span>
+                        <span class="metric-label">Performance</span>
+                    </div>
+                    <div class="metric-value" id="performance-metric">98%</div>
+                    <div class="metric-trend positive">+2.3%</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-icon">👥</span>
+                        <span class="metric-label">Usuários Online</span>
+                    </div>
+                    <div class="metric-value" id="users-metric">1,247</div>
+                    <div class="metric-trend positive">+156</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-icon">⚡</span>
+                        <span class="metric-label">Requests/min</span>
+                    </div>
+                    <div class="metric-value" id="requests-metric">2.3k</div>
+                    <div class="metric-trend negative">-0.8%</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-icon">🛡️</span>
+                        <span class="metric-label">Uptime</span>
+                    </div>
+                    <div class="metric-value" id="uptime-metric">99.9%</div>
+                    <div class="metric-trend positive">+0.1%</div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="chart-container">
+                    <h3 class="chart-title">Tráfego em Tempo Real</h3>
+                    <div class="chart-placeholder" id="traffic-chart">
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 60%;"></div>
+                            <div class="chart-bar" style="height: 80%;"></div>
+                            <div class="chart-bar" style="height: 45%;"></div>
+                            <div class="chart-bar" style="height: 90%;"></div>
+                            <div class="chart-bar" style="height: 70%;"></div>
+                            <div class="chart-bar" style="height: 95%;"></div>
+                            <div class="chart-bar" style="height: 65%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">Status dos Serviços</h3>
+                    <div class="services-status">
+                        <div class="service-item">
+                            <span class="service-name">API Gateway</span>
+                            <span class="service-status status-online">Online</span>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-name">Database</span>
+                            <span class="service-status status-online">Online</span>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-name">Cache Redis</span>
+                            <span class="service-status status-online">Online</span>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-name">CDN</span>
+                            <span class="service-status status-warning">Degraded</span>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-name">Backup Service</span>
+                            <span class="service-status status-online">Online</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activity Log -->
+            <section class="activity-section">
+                <h2 class="section-title">Log de Atividades</h2>
+                <div class="activity-log">
+                    <div class="activity-item">
+                        <div class="activity-time">14:32</div>
+                        <div class="activity-content">
+                            <span class="activity-type success">✓</span>
+                            Sistema iniciado com sucesso
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-time">14:28</div>
+                        <div class="activity-content">
+                            <span class="activity-type info">ℹ</span>
+                            Backup automático executado
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-time">14:15</div>
+                        <div class="activity-content">
+                            <span class="activity-type warning">⚠</span>
+                            CDN reportou latência elevada
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-time">14:02</div>
+                        <div class="activity-content">
+                            <span class="activity-type success">✓</span>
+                            Cache otimizado automaticamente
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control Panel -->
+            <section class="control-panel">
+                <h2 class="section-title">Painel de Controle</h2>
+                <div class="control-grid">
+                    <button class="control-btn" onclick="refreshMetrics()">
+                        <span class="control-icon">🔄</span>
+                        Atualizar Métricas
+                    </button>
+                    <button class="control-btn" onclick="clearCache()">
+                        <span class="control-icon">🗑️</span>
+                        Limpar Cache
+                    </button>
+                    <button class="control-btn" onclick="exportData()">
+                        <span class="control-icon">📊</span>
+                        Exportar Dados
+                    </button>
+                    <button class="control-btn" onclick="systemCheck()">
+                        <span class="control-icon">🔍</span>
+                        Verificar Sistema
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 TechApp. Sistema desenvolvido com tecnologia de ponta.</p>
+                <div class="footer-links">
+                    <a href="/">Início</a>
+                    <a href="/about">Sobre</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
