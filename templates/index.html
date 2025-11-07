@@ -6,6 +6,12 @@
     <title>TechApp - Sistema Avançado</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Start of magalog Zendesk Widget script -->
+    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=ae922271-cc85-4c1b-8602-f69907af206b"> </script>
+    <!-- End of magalog Zendesk Widget script -->
+    <script type="text/javascript">
+        zE('messenger:set', 'conversationFields', [{ id: "1260829093970", value: "Pellentesque nec nulla ligula. Donec gravida turpis a vulputate ultricies. Em pé sem cair, deitado sem dormir, sentado sem cochilar e fazendo pose. Delegadis gente finis, bibendum egestas augue arcu ut est. Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis" }]);
+    </script>
 </head>
 <body>
     <div class="container">
@@ -17,9 +23,11 @@
                     <span class="logo-text">TechApp</span>
                 </div>
                 <nav class="nav">
-                    <a href="/" class="nav-link active">Início</a>
+                    <a href="/index" class="nav-link active">Início</a>
+                    <a href="/dfMessenger" class="nav-link">DF Messenger</a>
                     <a href="/dashboard" class="nav-link">Dashboard</a>
                     <a href="/about" class="nav-link">Sobre</a>
+                    <a href="/docs/" class="nav-link">API Docs</a>
                 </nav>
                 <div class="status-indicator">
                     <span class="status-dot"></span>

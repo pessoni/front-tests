@@ -29,7 +29,7 @@ async function checkStatus() {
     `;
     
     try {
-        const response = await fetch('/api/status');
+        const response = await fetch('/system/status');
         const data = await response.json();
         
         if (response.ok) {
@@ -215,3 +215,4 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+

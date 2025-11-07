@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - TechApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .swagger-container {
+            background: var(--bg-primary);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+        
+        .swagger-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .swagger-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .swagger-description {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+        
+        .swagger-iframe {
+            width: 100%;
+            height: 800px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: white;
+        }
+        
+        .api-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .api-link {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .api-link:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">TechApp</span>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-link">Início</a>
+                    <a href="/dashboard" class="nav-link">Dashboard</a>
+                    <a href="/about" class="nav-link">Sobre</a>
+                    <a href="/docs/" class="nav-link active">API Docs</a>
+                </nav>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Sistema Online</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="swagger-container">
+            <div class="swagger-header">
+                <h1 class="swagger-title">
+                    Documentação da 
+                    <span class="text-gradient">API</span>
+                </h1>
+                <p class="swagger-description">
+                    Explore e teste todos os endpoints da TechApp API
+                </p>
+                
+                <div class="api-links">
+                    <a href="/docs/" class="api-link">📖 Swagger UI</a>
+                    <a href="/api/system/status" class="api-link">🔍 Status</a>
+                    <a href="/" class="api-link">🔗 Integration</a>
+                </div>
+            </div>
+            
+            <iframe 
+                src="/docs/" 
+                class="swagger-iframe"
+                title="Swagger API Documentation">
+            </iframe>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 TechApp. Sistema desenvolvido com tecnologia de ponta.</p>
+                <div class="footer-links">
+                    <a href="/">Início</a>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/about">Sobre</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

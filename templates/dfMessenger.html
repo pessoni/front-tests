@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechApp - Sistema Avançado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+<!-- Start of magalog Zendesk Web SDK script -->
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=ae922271-cc85-4c1b-8602-f69907af206b"> </script>
+<link rel="stylesheet"
+  href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+<script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+<df-messenger storage-option="none" project-id="alianca-ops-ped" agent-id="78f8c7a3-a4d1-41e2-a63a-bb70ce8d9a6e"
+  language-code="pt-br" max-query-length="-1">
+  <df-messenger-chat-bubble chat-title="DEV - Assistente Magalog" placeholder-text="Pergunte algo..."
+    chat-icon="https://storage.googleapis.com/baap-static/public_images/assistente-helpdesk/chatbot-helpdesk-avatar.png">
+  </df-messenger-chat-bubble>
+</df-messenger>
+
+<style>
+  df-messenger {
+    z-index: 999 !important;
+    position: fixed !important;
+    pointer-events: auto !important;
+    --df-messenger-font-color: #000;
+    --df-messenger-font-family: Google Sans;
+    --df-messenger-chat-background: #f3f6fc;
+    --df-messenger-message-user-background: #d3e3fd;
+    --df-messenger-message-bot-background: #fff;
+    --df-messenger-chat-window-width: 380px;
+    --df-messenger-titlebar-background: #0086FF;
+    --df-messenger-titlebar-font-color: #ffffff;
+    --df-messenger-chat-border-radius: 3px;
+    --df-messenger-chat-border: none;
+    --df-messenger-chat-scroll-button-font-color: #FFFFFF;
+    --df-messenger-chat-scroll-button-background: #0086FF;
+    --df-messenger-input-box-border-radius: 50px;
+    --df-messenger-chat-bubble-background: #0086FF;
+    --df-messenger-chat-bubble-icon-color: #FFFFFF;
+    --df-messenger-message-user-background: #0C99FF;
+    --df-messenger-message-user-font-color: #FFFFFF;
+    --df-messenger-titlebar-title-font-size: 18px;
+    --df-messenger-titlebar-icon-font-color: #0086FF;
+    --df-messenger-titlebar-padding: 5px 25px;
+    --df-messenger-chat-collapse-icon-size: 0px;
+    --df-messenger-chat-padding: 15px;
+    --df-messenger-input-padding: 5px;
+    --df-messenger-input-background: #FFFFFF;
+    --df-messenger-input-box-border: 0px;
+    --df-messenger-input-box-focus-border: 0px;
+    --df-messenger-send-icon-offset-y: -3px;
+    --df-messenger-input-box-focus-padding: 5px 15px;
+    --df-messenger-input-box-padding: 5px 15px;
+    --df-messenger-input-inner-padding: 0px 48px 0 0;
+    --df-messenger-input-padding: 0px 0px 10px 0;
+    --df-messenger-chat-window-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+    bottom: 16px;
+    right: 16px;
+  }
+
+  /* Remove cursor pointer genérico - aplicar apenas onde necessário */
+  df-messenger * {
+    cursor: default !important;
+  }
+
+  /* Mantém cursor pointer apenas no bubble de chat (quando fechado) */
+  df-messenger df-messenger-chat-bubble[closed] {
+    cursor: pointer !important;
+  }
+
+  /* Mantém cursor pointer apenas em botões e links reais */
+  df-messenger button,
+  df-messenger a,
+  df-messenger [role="button"] {
+    cursor: pointer !important;
+  }
+</style>
+
+<script>
+  // Debug script para verificar se o df-messenger está carregando
+  document.addEventListener('DOMContentLoaded', function () {
+    //console.log('DOM carregado, verificando df-messenger...');
+
+    const checkDfMessenger = () => {
+      const dfMessenger = document.querySelector('df-messenger');
+      if (dfMessenger) {
+        //console.log('✅ df-messenger encontrado:', dfMessenger);
+
+        const chatBubble = dfMessenger.querySelector('df-messenger-chat-bubble');
+        if (chatBubble) {
+          //console.log('✅ df-messenger-chat-bubble encontrado:', chatBubble);
+
+          // Tenta adicionar um listener de clique para debug
+          chatBubble.addEventListener('click', function () {
+            //console.log('🖱️ Chat bubble clicado!');
+          });
+
+          // Verifica se há shadow DOM
+          if (chatBubble.shadowRoot) {
+            //console.log('✅ Shadow DOM encontrado no chat bubble');
+          } else {
+            // console.log('❌ Shadow DOM não encontrado no chat bubble');
+          }
+        } else {
+          // console.log('❌ df-messenger-chat-bubble não encontrado');
+        }
+      } else {
+        //  console.log('❌ df-messenger não encontrado, tentando novamente...');
+        setTimeout(checkDfMessenger, 1000);
+      }
+    };
+
+    // Verifica imediatamente e depois em intervalos
+    checkDfMessenger();
+  });
+</script>
+<script>
+  // Configuração nativa do df-messenger para parâmetros do usuário
+  document.addEventListener('DOMContentLoaded', function () {
+    const dfMessenger = document.querySelector('df-messenger');
+    window.addEventListener('df-chat-open-changed', (event) => {
+    let att_org = ''
+    const queryParameters = {
+        parameters: {
+        'user-id': "mail@luizalabs.com",
+        'user_id': 3245678,
+        'name': "Nome do Usuário",
+        'email': "mail@luizalabs.com",
+        'login': "mail",
+        'org': 7004,
+        'login_ad': "mail",
+        'operation_branch': 7004
+        }
+    };
+    dfMessenger.setQueryParameters(queryParameters);
+    });
+
+    // Listener para mensagens enviadas pelo usuário (para detectar fluxo offline)
+    dfMessenger.addEventListener('df-message-sent', (event) => {
+      if (event.detail && event.detail.query) {
+        handleOfflineFlow(event.detail.query);
+      }
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".magalu-textos").forEach(function (link) {
+    });
+  });
+</script>
+<script type="text/javascript">
+  // Aguarda o df-messenger estar totalmente carregado
+  document.addEventListener('DOMContentLoaded', function () {
+    // Aguarda um pouco mais para garantir que o df-messenger esteja carregado
+    setTimeout(() => {
+      initializeDfMessenger();
+    }, 1000);
+  });
+
+  function initializeDfMessenger() {
+    let dfMessenger = document.querySelector('df-messenger');
+
+    if (!dfMessenger) {
+      console.warn('df-messenger não encontrado, tentando novamente...');
+      setTimeout(initializeDfMessenger, 1000);
+      return;
+    }
+    //console.log('df-messenger encontrado e inicializado');
+    setupChatFunctionality(dfMessenger);
+    zE('messenger', 'hide');
+  }
+
+  function setupChatFunctionality(dfMessenger) {
+    const formatDate = (date) => {
+      let day = date['day'];
+      let month = date['month'];
+      let year = date['year'];
+      return ("0" + month).slice(-2) + '/' + ("0" + day).slice(-2) + '/' + year;
+    }
+
+    const getTextOnlineService = (parameters) => {
+      let index = 0;
+      let text = "";
+      for (var param in parameters) {
+        if (paramsToIgnore.includes(param)) {
+          continue
+        }
+        let value_param = parameters[param];
+        if (param == "card_number" || param == "card_number_2") {
+          value_param = value_param.toString().replace(/ /g, '');
+          value_param = value_param.substring(0, 6) + "******" + value_param.substring(value_param.length - 4, value_param.length);
+        }
+        if (param == "operation_value") {
+          value_param = parseFloat(value_param.toString()).toFixed(2)
+        }
+        if (param == "operation_date") {
+          value_param = new Date(formatDate(value_param)).toLocaleDateString("pt-BR")
+        }
+
+        if (param in customEntitiesValues && value_param in customEntitiesValues[param]) {
+          text = text + titlesCaixaMovel[param] + customEntitiesValues[param][value_param] + "\n";
+        }
+        else {
+          if (value_param != null) {
+            if (titlesCaixaMovel[param] !== undefined) {
+              text = text + titlesCaixaMovel[param] + value_param + "\n";
+            }
+          }
+        }
+        index++;
+      }
+
+      return text;
+    }
+
+    const getSessionParameters = (messages) => {
+      if (!messages) {
+        return null;
+      }
+
+      // Procura nos payloads das responseMessages
+      for (let idx = 0; idx < messages.length; idx++) {
+        // Verifica se tem payload direto
+        if (typeof messages[idx] === 'object' && 'payload' in messages[idx]) {
+          if ('parameters' in messages[idx].payload) {
+            return messages[idx].payload.parameters;
+          }
+
+          // Verifica se tem richContent com parameters
+          if (messages[idx].payload.richContent && messages[idx].payload.parameters) {
+            return messages[idx].payload.parameters;
+          }
+        }
+      }
+
+      return null;
+    }
+
+    // Função auxiliar para fechar o df-messenger de forma segura
+    const closeDfMessenger = () => {
+      try {
+        const dfMessenger = document.querySelector('df-messenger');
+        if (dfMessenger) {
+          // Tenta encontrar o botão de fechar na nova estrutura df-messenger-chat-bubble
+          const chatBubble = dfMessenger.querySelector('df-messenger-chat-bubble');
+          if (chatBubble && chatBubble.shadowRoot) {
+            // Procura por vários seletores possíveis do botão de fechar
+            const selectors = [
+              '[aria-label*="close"]',
+              '[aria-label*="fechar"]',
+              '.close-button',
+              'button[title*="Close"]',
+              'button[title*="Fechar"]',
+              '[data-testid="close-button"]',
+              'df-icon[icon="close"]'
+            ];
+
+            for (const selector of selectors) {
+              const closeBtn = chatBubble.shadowRoot.querySelector(selector);
+              if (closeBtn) {
+                closeBtn.click();
+                return true;
+              }
+            }
+
+            // Se não encontrou botão, tenta clicar no próprio bubble para minimizar
+            chatBubble.click();
+            return true;
+          }
+
+          // Fallback: usa método programático se existir
+          if (typeof dfMessenger.close === 'function') {
+            dfMessenger.close();
+            return true;
+          }
+
+          // Último fallback: tenta esconder o elemento
+          dfMessenger.style.display = 'none';
+          setTimeout(() => dfMessenger.style.display = 'block', 5000); // Reexibe após 5s
+          return true;
+        }
+        return false;
+      } catch (err) {
+        console.warn('Erro ao fechar df-messenger:', err);
+        return false;
+      }
+    };
+
+    dfMessenger.addEventListener('df-response-received', function (event) {
+      // Identifica a estrutura correta do DialogFlow
+      let queryResult = null;
+      let fulfillmentMessages = null;
+
+      if (event.detail.raw && event.detail.raw.queryResult) {
+        // Nova estrutura: event.detail.raw.queryResult
+        queryResult = event.detail.raw.queryResult;
+        fulfillmentMessages = queryResult.responseMessages || queryResult.fulfillmentMessages;
+      } else if (event.detail.response && event.detail.response.queryResult) {
+        // Estrutura antiga: event.detail.response.queryResult
+        queryResult = event.detail.response.queryResult;
+        fulfillmentMessages = queryResult.fulfillmentMessages;
+      } else if (event.detail.queryResult) {
+        // Estrutura direta: event.detail.queryResult
+        queryResult = event.detail.queryResult;
+        fulfillmentMessages = queryResult.fulfillmentMessages || queryResult.responseMessages;
+      }
+
+      if (!queryResult) {
+        console.warn('QueryResult não encontrado na resposta do DialogFlow');
+        return;
+      }
+
+      // Busca parâmetros na sessão do DialogFlow
+      let parameters = null;
+      if (queryResult.parameters) {
+        parameters = queryResult.parameters;
+      }
+
+      // Fallback: busca nos fulfillmentMessages
+      if (!parameters || !parameters.ia_open_livechat) {
+        const fulfillmentParams = getSessionParameters(fulfillmentMessages);
+        if (fulfillmentParams) {
+          parameters = { ...parameters, ...fulfillmentParams };
+        }
+      }
+
+      // Transbordo via Agente IA
+      if (parameters?.ia_open_livechat == true) {
+        debugger;
+        // Determina a mensagem de transbordo
+        let transbordoMessage = parameters.livechat_message || "Redirecionamento via Agente IA";
+
+        // Se tem dados estruturados, formata como texto
+        if (!parameters.livechat_message && parameters.assunto) {
+          transbordoMessage = getTextOnlineService(parameters);
+        }
+
+        const dfClosed = closeDfMessenger();
+
+        setTimeout(() => {
+          const resultadoTransbordo = transferToZendeskChat(
+            "NOme",
+            "mail@luizalabs.com",
+            transbordoMessage
+          );
+
+          if (!resultadoTransbordo) {
+            console.error('Falha no transbordo IA via Zendesk');
+            dfMessenger.renderCustomText('Serviço de atendimento temporariamente indisponível. Tente novamente em alguns instantes.');
+          }
+        }, 500);
+        
+      }
+    });
+    const transferToZendeskChat = (userName, userEmail, message) => {
+      // Passa a mensagem para a autenticação
+      //let token = autenticarZendesk(userName, userEmail, identifier, message);
+
+      if (typeof zE === 'undefined') {
+        console.error('Zendesk não está carregado');
+        return false;
+      }
+
+      try {
+        console.log('Usando Zendesk Web SDK (messaging) para:', userName);
+        console.log('Mensagem de contexto:', message);
+        zE('messenger', 'show');
+        zE('messenger', 'open');
+        zE('messenger:set', 'conversationFields', [{ id: "1260829093970", value: message }]);
+        return true;
+
+      } catch (err) {
+        console.error('Erro ao fazer transbordo via Zendesk Web SDK:', err);
+      }
+    };
+    // Controle de status offline simplificado
+    let msg_anterior = "initial";
+
+    // Função para detectar mensagens offline sem interceptar requisições
+    const handleOfflineFlow = (messageText) => {
+      if (statusCon == "offline") {
+        if (messageText == "Atendimento Online") {
+          // Redireciona para fluxo offline usando o método nativo do df-messenger
+          const dfMessenger = document.querySelector('df-messenger');
+          if (dfMessenger) {
+            dfMessenger.renderCustomText("chamado offline");
+            msg_anterior = "chamado offline";
+          }
+        } else if (msg_anterior == "chamado offline" && messageText === 'Sim') {
+          msg_anterior = "initial";
+          openTicketOffline();
+        }
+      }
+    };
+
+    // Inicialização robusta do sistema com retry para ZOPIM
+    document.addEventListener('DOMContentLoaded', function () {
+      let zopimRetryCount = 0;
+      const maxZopimRetries = 10;
+
+      const initializeZopim = () => {
+        // Tenta primeiro via $zopim diretamente
+        if (typeof $zopim !== 'undefined' && $zopim.livechat) {
+          try {
+            $zopim(function () {
+              $zopim.livechat.setOnStatus(checkStatus);
+            });
+            return true;
+          } catch (err) {
+            console.warn('Erro ao inicializar ZOPIM via $zopim:', err);
+          }
+        }
+
+        // Usar Zendesk Chat como alternativa ao ZOPIM
+        if (typeof zE !== 'undefined') {
+          try {
+            // Inicializa o checkStatus para funcionar com Zendesk
+            if (typeof zE === 'function') {
+              // Configura o status do chat como online (simulando ZOPIM)
+              statusCon = "online";
+              return true;
+            }
+          } catch (err) {
+            console.warn('Erro ao inicializar Zendesk Chat:', err);
+          }
+        }
+
+        return false;
+      };
+    });
+  } // Fecha initializeDfMessenger
+</script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">TechApp</span>
+                </div>
+                <nav class="nav">
+                    <a href="/index" class="nav-link active">Início</a>
+                    <a href="/dfMessenger" class="nav-link">DF Messenger</a>
+                    <a href="/dashboard" class="nav-link">Dashboard</a>
+                    <a href="/about" class="nav-link">Sobre</a>
+                    <a href="/docs/" class="nav-link">API Docs</a>
+                </nav>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Sistema Online</span>
+                </div>
+            </div>
+        </header>
+    </div>
+</body>
+</html>

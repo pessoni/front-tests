@@ -2,6 +2,13 @@
 
 Uma aplicação web moderna desenvolvida com Python Flask, apresentando um frontend estático com design tecnológico e tema escuro profissional.
 
+
+
+# Integration Conv - zendesk
+- id da integração: 690bacf7cc097f6c2b07e335
+- id do webhook: 690bacf7cc097f6c2b07e334
+- secret: 7rrAhcz8GT7DArwymJ6tb1_cjDXGQr5P3OfjfJU7vCtJguknAzaJWxIY3qkSgfTehsnJtuNKJvxnrIVqrHDv6Q 
+
 ## 🚀 Características
 
 - **Design Tecnológico**: Interface moderna com tema escuro e cores vibrantes
