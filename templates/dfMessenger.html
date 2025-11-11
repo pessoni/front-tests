@@ -331,7 +331,7 @@
       if (parameters?.ia_open_livechat == true) {
         debugger;
         // Determina a mensagem de transbordo
-        let transbordoMessage = parameters.livechat_message || "Redirecionamento via Agente IA";
+        let transbordoMessage = parameters.description || " Redirecionamento via Agente IA";
 
         // Se tem dados estruturados, formata como texto
         if (!parameters.livechat_message && parameters.assunto) {
@@ -378,23 +378,6 @@
     };
     // Controle de status offline simplificado
     let msg_anterior = "initial";
-
-    // Função para detectar mensagens offline sem interceptar requisições
-    const handleOfflineFlow = (messageText) => {
-      if (statusCon == "offline") {
-        if (messageText == "Atendimento Online") {
-          // Redireciona para fluxo offline usando o método nativo do df-messenger
-          const dfMessenger = document.querySelector('df-messenger');
-          if (dfMessenger) {
-            dfMessenger.renderCustomText("chamado offline");
-            msg_anterior = "chamado offline";
-          }
-        } else if (msg_anterior == "chamado offline" && messageText === 'Sim') {
-          msg_anterior = "initial";
-          openTicketOffline();
-        }
-      }
-    };
 
     // Inicialização robusta do sistema com retry para ZOPIM
     document.addEventListener('DOMContentLoaded', function () {
