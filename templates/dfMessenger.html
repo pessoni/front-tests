@@ -329,7 +329,6 @@
 
       // Transbordo via Agente IA
       if (parameters?.ia_open_livechat == true) {
-        debugger;
         // Determina a mensagem de transbordo
         let transbordoMessage = parameters.description || " Redirecionamento via Agente IA";
 
@@ -367,9 +366,36 @@
       try {
         console.log('Usando Zendesk Web SDK (messaging) para:', userName);
         console.log('Mensagem de contexto:', message);
-        zE('messenger', 'show');
-        zE('messenger', 'open');
-        zE('messenger:set', 'conversationFields', [{ id: "1260829093970", value: message }]);
+
+        token = "";
+        payload = {"user_name": "Luciano Pessoni Pereira", 
+                   "user_email": "lu.pessoni@luizalabs.com", 
+                   "user_external_id": "lu.pessoni@luizalabs.com"
+                  };
+
+        fetch("http://127.0.0.1:5000/livechat/get-switchboard-jwt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.text())
+        .then(token => {
+            console.log("JWT recebido:", token);
+            zE("messenger", "loginUser", (callback) => {
+                callback(token);
+                console.log("showing messenger after loginUser");
+                zE('messenger', 'show');
+                console.log("opening messenger after loginUser");
+                zE('messenger', 'open');
+                console.log("setting conversationFields after loginUser");
+                zE('messenger:set', 'conversationFields', [{ id: "43288086098075", value: message }]);
+            });
+          }
+        )
+        .then(data => {
+  				console.dir(data);
+        })
+        .catch(err => console.error("Erro ao gerar JWT:", err));
         return true;
 
       } catch (err) {
@@ -415,6 +441,47 @@
       };
     });
   } // Fecha initializeDfMessenger
+
+
+
+     test_transbordo = () => {
+      // Passa a mensagem para a autenticação
+      //let token = autenticarZendesk(userName, userEmail, identifier, message);
+
+      if (typeof zE === 'undefined') {
+        console.error('Zendesk não está carregado');
+        return false;
+      }
+
+      try {
+        
+        token = "";
+        payload = {"user_name": "Luciano Pessoni Pereira", 
+                   "user_email": "lu.pessoni@luizalabs.com", 
+                   "user_external_id": "27100157811"
+                  };
+
+        fetch("http://127.0.0.1:5000/livechat/get-switchboard-jwt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.text())
+        .then(token => {
+            console.log("JWT recebido:", token);
+          }
+        )
+        .then(data => {
+  				console.dir(data);
+        })
+        .catch(err => console.error("Erro ao gerar JWT:", err));
+        return true;
+
+      } catch (err) {
+        console.error('Erro ao fazer transbordo via Zendesk Web SDK:', err);
+      }
+    };
+
 </script>
 </head>
 <body>
