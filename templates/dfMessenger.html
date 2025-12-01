@@ -15,7 +15,7 @@
 <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
 <df-messenger storage-option="none" project-id="alianca-ops-ped" agent-id="78f8c7a3-a4d1-41e2-a63a-bb70ce8d9a6e"
   language-code="pt-br" max-query-length="-1">
-  <df-messenger-chat-bubble chat-title="DEV - Assistente Magalog" placeholder-text="Pergunte algo..."
+  <df-messenger-chat-bubble chat-title="Assistente Magalog" placeholder-text="Pergunte algo..."
     chat-icon="https://storage.googleapis.com/baap-static/public_images/assistente-helpdesk/chatbot-helpdesk-avatar.png">
   </df-messenger-chat-bubble>
 </df-messenger>
@@ -80,44 +80,6 @@
 </style>
 
 <script>
-  // Debug script para verificar se o df-messenger está carregando
-  document.addEventListener('DOMContentLoaded', function () {
-    //console.log('DOM carregado, verificando df-messenger...');
-
-    const checkDfMessenger = () => {
-      const dfMessenger = document.querySelector('df-messenger');
-      if (dfMessenger) {
-        //console.log('✅ df-messenger encontrado:', dfMessenger);
-
-        const chatBubble = dfMessenger.querySelector('df-messenger-chat-bubble');
-        if (chatBubble) {
-          //console.log('✅ df-messenger-chat-bubble encontrado:', chatBubble);
-
-          // Tenta adicionar um listener de clique para debug
-          chatBubble.addEventListener('click', function () {
-            //console.log('🖱️ Chat bubble clicado!');
-          });
-
-          // Verifica se há shadow DOM
-          if (chatBubble.shadowRoot) {
-            //console.log('✅ Shadow DOM encontrado no chat bubble');
-          } else {
-            // console.log('❌ Shadow DOM não encontrado no chat bubble');
-          }
-        } else {
-          // console.log('❌ df-messenger-chat-bubble não encontrado');
-        }
-      } else {
-        //  console.log('❌ df-messenger não encontrado, tentando novamente...');
-        setTimeout(checkDfMessenger, 1000);
-      }
-    };
-
-    // Verifica imediatamente e depois em intervalos
-    checkDfMessenger();
-  });
-</script>
-<script>
   // Configuração nativa do df-messenger para parâmetros do usuário
   document.addEventListener('DOMContentLoaded', function () {
     const dfMessenger = document.querySelector('df-messenger');
@@ -125,14 +87,8 @@
     let att_org = ''
     const queryParameters = {
         parameters: {
-        'user-id': "mail@luizalabs.com",
-        'user_id': 3245678,
         'name': "Nome do Usuário",
-        'email': "mail@luizalabs.com",
-        'login': "mail",
-        'org': 7004,
-        'login_ad': "mail",
-        'operation_branch': 7004
+        'email': "mail@luizalabs.com"
         }
     };
     dfMessenger.setQueryParameters(queryParameters);
@@ -150,8 +106,6 @@
     document.querySelectorAll(".magalu-textos").forEach(function (link) {
     });
   });
-</script>
-<script type="text/javascript">
   // Aguarda o df-messenger estar totalmente carregado
   document.addEventListener('DOMContentLoaded', function () {
     // Aguarda um pouco mais para garantir que o df-messenger esteja carregado
@@ -355,9 +309,6 @@
       }
     });
     const transferToZendeskChat = (userName, userEmail, message) => {
-      // Passa a mensagem para a autenticação
-      //let token = autenticarZendesk(userName, userEmail, identifier, message);
-
       if (typeof zE === 'undefined') {
         console.error('Zendesk não está carregado');
         return false;
@@ -369,25 +320,25 @@
 
         token = "";
         payload = {"user_name": "Luciano Pessoni Pereira", 
-                   "user_email": "lu.pessoni@luizalabs.com", 
-                   "user_external_id": "lu.pessoni@luizalabs.com"
+                   "user_email": "lu3.pessoni@luizalabs.com", 
+                   "user_external_id": "lu3.pessoni@luizalabs.com",
+                   "message_switchboard": message
                   };
-
-        fetch("http://zefiro-ia-kit-hml.luizalabs.com/livechat/get-switchboard-jwt", {
+        //fetch("http://localhost:5000/livechat/get-switchboard-jwt", {
+        fetch("https://zefiro-ia-kit-hml.luizalabs.com/livechat/get-switchboard-jwt", {        
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          redirect: "follow",
           body: JSON.stringify(payload)
         })
         .then(res => res.text())
         .then(token => {
-            console.log("JWT recebido:", token);
+            //zE("messenger", "logoutUser");
+            zE('messenger', 'show');
+            zE('messenger', 'open');
             zE("messenger", "loginUser", (callback) => {
                 callback(token);
-                console.log("showing messenger after loginUser");
-                zE('messenger', 'show');
-                console.log("opening messenger after loginUser");
-                zE('messenger', 'open');
-                console.log("setting conversationFields after loginUser");
+                // Efetua o envio da última mensagem do usuário a fim de mostrá-la no chat do agente
                 zE('messenger:set', 'conversationFields', [{ id: "43288086098075", value: message }]);
             });
           }
@@ -402,86 +353,7 @@
         console.error('Erro ao fazer transbordo via Zendesk Web SDK:', err);
       }
     };
-    // Controle de status offline simplificado
-    let msg_anterior = "initial";
-
-    // Inicialização robusta do sistema com retry para ZOPIM
-    document.addEventListener('DOMContentLoaded', function () {
-      let zopimRetryCount = 0;
-      const maxZopimRetries = 10;
-
-      const initializeZopim = () => {
-        // Tenta primeiro via $zopim diretamente
-        if (typeof $zopim !== 'undefined' && $zopim.livechat) {
-          try {
-            $zopim(function () {
-              $zopim.livechat.setOnStatus(checkStatus);
-            });
-            return true;
-          } catch (err) {
-            console.warn('Erro ao inicializar ZOPIM via $zopim:', err);
-          }
-        }
-
-        // Usar Zendesk Chat como alternativa ao ZOPIM
-        if (typeof zE !== 'undefined') {
-          try {
-            // Inicializa o checkStatus para funcionar com Zendesk
-            if (typeof zE === 'function') {
-              // Configura o status do chat como online (simulando ZOPIM)
-              statusCon = "online";
-              return true;
-            }
-          } catch (err) {
-            console.warn('Erro ao inicializar Zendesk Chat:', err);
-          }
-        }
-
-        return false;
-      };
-    });
   } // Fecha initializeDfMessenger
-
-
-
-     test_transbordo = () => {
-      // Passa a mensagem para a autenticação
-      //let token = autenticarZendesk(userName, userEmail, identifier, message);
-
-      if (typeof zE === 'undefined') {
-        console.error('Zendesk não está carregado');
-        return false;
-      }
-
-      try {
-        
-        token = "";
-        payload = {"user_name": "Luciano Pessoni Pereira", 
-                   "user_email": "lu.pessoni@luizalabs.com", 
-                   "user_external_id": "27100157811"
-                  };
-
-        fetch("http://127.0.0.1:5000/livechat/get-switchboard-jwt", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        })
-        .then(res => res.text())
-        .then(token => {
-            console.log("JWT recebido:", token);
-          }
-        )
-        .then(data => {
-  				console.dir(data);
-        })
-        .catch(err => console.error("Erro ao gerar JWT:", err));
-        return true;
-
-      } catch (err) {
-        console.error('Erro ao fazer transbordo via Zendesk Web SDK:', err);
-      }
-    };
-
 </script>
 </head>
 <body>
